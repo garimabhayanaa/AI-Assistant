@@ -32,8 +32,14 @@ This project is an AI-powered assistant that can perform various tasks, answer q
    git clone <repository-url>
    cd <repository-directory>
    ```
-
-2. **Install Required Packages**:
+2. **Setup ChatLog to store chat hisory
+   ```bash
+   cd data
+   touch ChatLog.json
+   cd..
+   ```
+   
+3. **Install Required Packages**:
    Create a virtual environment (optional but recommended):
    ```bash
    python -m venv venv
@@ -45,7 +51,7 @@ This project is an AI-powered assistant that can perform various tasks, answer q
    pip install -r requirements.txt
    ```
 
-3. **Set Up Environment Variables**:
+4. **Set Up Environment Variables**:
    Create a `.env` file in the root directory and add the necessary environment variables:
    ```plaintext
    COHERE_API_KEY=<your-cohere-api-key>
@@ -76,7 +82,7 @@ This project is an AI-powered assistant that can perform various tasks, answer q
 Contributions are welcome! If you have suggestions or improvements, feel free to create a pull request or open an issue.
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+No License
 
 ## Acknowledgments
 - Thanks to the developers of the libraries and APIs used in this project.
