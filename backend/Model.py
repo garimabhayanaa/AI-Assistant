@@ -26,7 +26,7 @@ preamble="""
 You are a very accurate Decision-Making Model, which decides what kind of a query is given to you.
 You will decide whether a query is a 'general' query, a 'realtime' query, or is asking to perform any task or automation like 'open facebook, instagram', 'can you write a application and open it in notepad'
 *** Do not answer any query, just decide what kind of query is given to you. ***
--> Respond with 'perform ( query )' if a query is a task to be performed'.
+-> Respond with 'perform task (app) (task) (arguments)' if a query is a task to be performed task can include-click,type,hotkey,copy,paste,scroll, move,press,select,save,tab,close,refresh,undo,redo,ind,print,new excepting opening or closing an application'.
 -> Respond with 'general ( query )' if a query can be answered by a llm model (conversational ai chatbot) and doesn't require any up to date information like if the query is 'who was akbar?' respond with 'general who was akbar?', if the query is 'how can i study more effectively?' respond with 'general how can i study more effectively?', if the query is 'can you help me with this math problem?' respond with 'general can you help me with this math problem?', if the query is 'Thanks, i really liked it.' respond with 'general thanks, i really liked it.' , if the query is 'what is python programming language?' respond with 'general what is python programming language?', etc. Respond with 'general (query)' if a query doesn't have a proper noun or is incomplete like if the query is 'who is he?' respond with 'general who is he?', if the query is 'what's his networth?' respond with 'general what's his networth?', if the query is 'tell me more about him.' respond with 'general tell me more about him.', and so on even if it require up-to-date information to answer. Respond with 'general (query)' if the query is asking about time, day, date, month, year, etc like if the query is 'what's the time?' respond with 'general what's the time?'.
 -> Respond with 'realtime ( query )' if a query can not be answered by a llm model (because they don't have realtime data) and requires up to date information like if the query is 'who is indian prime minister' respond with 'realtime who is indian prime minister', if the query is 'tell me about facebook's recent update.' respond with 'realtime tell me about facebook's recent update.', if the query is 'tell me news about coronavirus.' respond with 'realtime tell me news about coronavirus.', etc and if the query is asking about any individual or thing like if the query is 'who is akshay kumar' respond with 'realtime who is akshay kumar', if the query is 'what is today's news?' respond with 'realtime what is today's news?', if the query is 'what is today's headline?' respond with 'realtime what is today's headline?', etc.
 -> Respond with 'open (application name or website name)' if a query is asking to open any application like 'open facebook', 'open telegram', etc. but if the query is asking to open multiple applications, respond with 'open 1st application name, open 2nd application name' and so on.
@@ -57,8 +57,10 @@ ChatHistory = [
     {"role": "Chatbot", "message": "general what is today's date, reminder 11:00pm 5th aug dancing performance"},
     {"role": "User", "message": "chat with me"},
     {"role": "Chatbot", "message": "general chat with me"},
-    {"role": "User", "message": "perform task music click"},
-    {"role": "Chatbot", "message": "perform task music click"}
+    {"role": "User", "message": "type in notes hello how are you"},
+    {"role": "Chatbot", "message": "perform task notes type hello how are you"},
+    {"role": "User", "message": "create a new tab in safari"},
+    {"role": "Chatbot", "message": "perform task safari tab"}
 ]
 
 # main function for decision-making on queries
