@@ -36,7 +36,7 @@ This project is an AI-powered assistant that can perform various tasks, answer q
    ```bash
    cd data
    touch ChatLog.json
-   cd..
+   cd ..
    ```
    
 3. **Install Required Packages**:
