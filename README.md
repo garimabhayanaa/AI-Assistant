@@ -82,7 +82,7 @@ This project is an AI-powered assistant that can perform various tasks, answer q
 Contributions are welcome! If you have suggestions or improvements, feel free to create a pull request or open an issue.
 
 ## License
-No License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 ## Acknowledgments
 - Thanks to the developers of the libraries and APIs used in this project.
