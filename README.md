@@ -11,6 +11,12 @@ This project is an AI-powered assistant that can perform various tasks, answer q
 - **Chat History**: Maintains a chat log for context and reference.
 - **Graphical User Interface**: A user-friendly GUI built with PyQt5 for easy interaction.
 
+## Customization Options
+- Users can modify commands, assistant voice, and UI themes through the `.env` configuration file. This allows for a personalized experience tailored to individual preferences.
+
+## Extensibility
+- Developers can easily add new features by modifying the existing codebase. This includes adding more AI models, expanding automation tasks, or integrating additional APIs. The modular design of the project facilitates straightforward enhancements.
+
 ## Technologies Used
 - Python
 - PyQt5
