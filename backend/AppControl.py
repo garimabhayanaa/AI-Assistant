@@ -109,6 +109,12 @@ def new():
     pyautogui.press('n')
     pyautogui.keyUp('command')
 
+def cut():
+    time.sleep(0.5)
+    pyautogui.keyDown('command')
+    pyautogui.press('x')
+    pyautogui.keyUp('command')
+
 
 def perform_task_on_application(app, task, *args):
     print(f"Performing task '{task}' on {app}...")
@@ -131,13 +137,17 @@ def perform_task_on_application(app, task, *args):
         "redo": redo,
         "find": find,
         "print": print_document,
-        "new": new
+        "new": new,
+        "cut":cut
     }
     
     if task in task_mapping:
         try:
             task_mapping[task]()
+            return True
         except Exception as e:
             print(f"Error executing task '{task}': {e}")
+            return False
     else:
         print(f"Task '{task}' is not recognized.")
+        return False
