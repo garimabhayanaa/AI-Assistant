@@ -24,17 +24,16 @@ import threading
 import json
 import os
 import sys
+import numpy as np
 
 env_vars=dotenv_values(".env")
 USERNAME= env_vars.get("USERNAME")
 ASSISTANT_NAME= env_vars.get("ASSISTANT")
 
-DEFAULT_MESSAGE=f'''
-{USERNAME} : Hello {ASSISTANT_NAME}, How are you?
-{ASSISTANT_NAME} : Welcome {USERNAME}. I am doing well. How may I help you?
-'''
+DEFAULT_MESSAGE=f"""Welcome {USERNAME}! How can I assist you today?"""
+
 subprocesses=[]
-functions =["open", "close", "play", "system", "content", "google search", "youtube search"]
+functions =["open", "close", "play", "system", "content", "google search", "youtube search","task"]
 
 # Global variable to track unanswered input
 unanswered_input = None
@@ -101,7 +100,20 @@ def initial_execution():
 
 initial_execution()
 
+def detect_hotword():
+    """Continuously listen for the hotword and update status instantly."""
+    while True:
+        query = speech_recognition()  # Keep listening
 
+        if not query:
+            continue  # Ignore empty input
+        
+        hotword = ASSISTANT_NAME.strip().lower()
+        
+        if query.lower().startswith(hotword):
+            set_assistant_status("Listening...")  # Instantly update status
+            print("Hotword detected. Assistant is now Listening...")
+            break  # Stop listening once hotword is detected
 
 def main_execution():
     global unanswered_input  # Declare the global variable to modify it
@@ -109,14 +121,16 @@ def main_execution():
     image_execution = False
     image_generation_query = ""
 
-    set_assistant_status("Listening...")
+    detect_hotword()
+
     query = speech_recognition()
     
-    if query:  # Check if there is a valid query
-        show_text_to_screen(f"{USERNAME}: {query}")
-        unanswered_input = None  # Reset unanswered input if there's a valid query
-    else:
+    if not query:
         unanswered_input = query  # Store the query if it's empty (indicating no input)
+        return
+    
+    show_text_to_screen(f"{USERNAME}: {query}")
+    unanswered_input = None  # Reset unanswered input if there's a valid query
 
     set_assistant_status("Thinking...")
     try: 
@@ -134,19 +148,19 @@ def main_execution():
         )
 
         for queries in decision:
-            if task_execution==False:
+            if not task_execution:
                 if any(queries.startswith(func) for func in functions):
                     run(automation(list(decision)))
-                    task_execution=True
+                    task_execution = True
         
-        if image_execution==True:
+        if image_execution:
 
-            with open(r"frontend/Files/ImageGeneration.data","w") as file:
+            with open(r"frontend/Files/ImageGeneration.data", "w") as file:
                 file.write(f"{image_generation_query},True")
 
             try:
-                p1= subprocess.Popen(['python', r'backend/ImageGeneration.py'],
-                                    stdout=subprocess.PIPE,stderr=subprocess.PIPE,
+                p1 = subprocess.Popen(['python', r'backend/ImageGeneration.py'],
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                     stdin=subprocess.PIPE, shell=False)
                 subprocesses.append(p1)
 
@@ -155,7 +169,7 @@ def main_execution():
         
         if G and R or R:
             set_assistant_status("Searching...")
-            answer= realtime_search_engine(query_modifier(merged_query))
+            answer = realtime_search_engine(query_modifier(merged_query))
             show_text_to_screen(f"{ASSISTANT_NAME} : {answer}")
             set_assistant_status("Answering...")
             TTS(answer)
@@ -165,23 +179,31 @@ def main_execution():
             for queries in decision:
 
                 if "perform " in queries:  # Check for the new command
-                    query_final=queries.replace("perform ","")
+                    set_assistant_status("Performing task...")
+                    query_final = queries.replace("perform ", "")
                     _, app_name, task, *args = query_final.split()  # Split the command into parts
-                    perform_task_on_application(app_name,task, *args)  # Call the function
+                    task_completed=perform_task_on_application(app_name, task, *args)  # Call the function
+                    answer=""
+                    if task_completed:
+                        answer=f"Perfromed task {task} on {app_name}."   
+                    else:
+                        answer="Task could not be completed."
+                    show_text_to_screen(f"{ASSISTANT_NAME} : {answer}")
+                    TTS(answer)
                     return True
 
                 elif "general" in queries:
                     set_assistant_status("Thinking...")
-                    query_final= queries.replace("general ","")
-                    answer= chatbot(query_modifier(query_final))
+                    query_final = queries.replace("general ", "")
+                    answer = chatbot(query_modifier(query_final))
                     show_text_to_screen(f"{ASSISTANT_NAME} : {answer}")
                     set_assistant_status("Answering...")
                     TTS(answer)
                 
                 elif "realtime" in queries:
                     set_assistant_status("Searching...")
-                    query_final=queries.replace("realtime ","")
-                    answer= realtime_search_engine(query_modifier(query_final))
+                    query_final = queries.replace("realtime ", "")
+                    answer = realtime_search_engine(query_modifier(query_final))
                     show_text_to_screen(f"{ASSISTANT_NAME} : {answer}")
                     set_assistant_status("Answering...")
                     TTS(answer)
@@ -193,7 +215,7 @@ def main_execution():
                     show_text_to_screen(f"{ASSISTANT_NAME} : {answer}")
                     set_assistant_status("Answering...")
                     TTS(answer)
-                    sys.exit(0)
+                    sys.exit()
                     return
     except Exception as e:
         print(f"An error occurred: {e}")  
@@ -204,7 +226,7 @@ def first_thread():
         current_status = get_microphone_status()
 
         if current_status == "True":
-            set_assistant_status("Listening...")
+            set_assistant_status("Waiting...")
             main_execution()
         else:
             AI_status = get_assistant_status()
