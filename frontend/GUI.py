@@ -99,7 +99,7 @@ class ChatSection(QWidget):
         
         self.gif_label = QLabel()
         self.gif_label.setStyleSheet("border: none;")  # Ensure this is valid
-        movie= QMovie(graphics_directory_path('gia.gif'))
+        movie= QMovie(graphics_directory_path('assistant.gif'))
         max_gif_size_W= 480
         max_gif_size_H= 270
         movie.setScaledSize(QSize(max_gif_size_W,max_gif_size_H))
@@ -186,7 +186,7 @@ class InitialScreen(QWidget):
         content_layout=QVBoxLayout()
         content_layout.setContentsMargins(0,0,0,0)
         gif_label= QLabel()
-        movie= QMovie(graphics_directory_path('gia.gif'))
+        movie= QMovie(graphics_directory_path('assistant.gif'))
         gif_label.setMovie(movie)
         max_gif_size_H= int(screen_width/16*9)
         movie.setScaledSize(QSize(screen_width,max_gif_size_H))
