@@ -4,8 +4,9 @@
 This project is an AI-powered assistant that can perform various tasks, answer questions, and interact with users through voice commands and a graphical user interface (GUI). It utilizes several libraries and APIs to provide functionalities such as speech recognition, text-to-speech, real-time information retrieval, and application control.
 
 ## Features
+- **Hotword Detection**: The assistant listens for a predefined hotword to activate itself before processing commands.
 - **Voice Interaction**: Users can interact with the assistant using voice commands.
-- **Task Automation**: The assistant can perform tasks such as opening applications, playing music, and generating content.
+- **Task Automation**: The assistant can perform tasks such as opening applications, generating content and typing.
 - **Real-time Information**: It can fetch real-time data from the internet, such as news and current events.
 - **Image Generation**: The assistant can generate images based on user prompts using AI models.
 - **Chat History**: Maintains a chat log for context and reference.
@@ -38,14 +39,8 @@ This project is an AI-powered assistant that can perform various tasks, answer q
    git clone <repository-url>
    cd <repository-directory>
    ```
-2. **Setup ChatLog to store chat hisory
-   ```bash
-   cd data
-   touch ChatLog.json
-   cd ..
-   ```
-   
-3. **Install Required Packages**:
+
+2. **Install Required Packages**:
    Create a virtual environment (optional but recommended):
    ```bash
    python -m venv venv
@@ -57,7 +52,7 @@ This project is an AI-powered assistant that can perform various tasks, answer q
    pip install -r requirements.txt
    ```
 
-4. **Set Up Environment Variables**:
+3. **Set Up Environment Variables**:
    Create a `.env` file in the root directory and add the necessary environment variables:
    ```plaintext
    COHERE_API_KEY=<your-cohere-api-key>
@@ -81,8 +76,9 @@ This project is an AI-powered assistant that can perform various tasks, answer q
    - The assistant will respond verbally and display text in the GUI.
 
 3. **Accessing Features**:
+   - **Hotword Detection**: Say the predefined hotword to activate the assistant.
    - **Voice Commands**: Speak commands like "open Chrome", "play music", or "generate an image of a cat".
-   - **Text Commands**: You can also type commands in the GUI.
+   - **Text Commands**: You can also view chat history in the GUI.
 
 ## Contributing
 Contributions are welcome! If you have suggestions or improvements, feel free to create a pull request or open an issue.
