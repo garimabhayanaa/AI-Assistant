@@ -36,8 +36,8 @@ This project is an AI-powered assistant that can perform various tasks, answer q
 ### Steps
 1. **Clone the Repository**:
    ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone https://github.com/garimabhayanaa/AI-Assistant
+   cd AI-Assistant
    ```
 
 2. **Install Required Packages**:
