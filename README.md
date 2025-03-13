@@ -1,4 +1,4 @@
-# AI Assistant Project
+# IntelliAssist Project
 
 ## Overview
 This project is an AI-powered assistant that can perform various tasks, answer questions, and interact with users through voice commands and a graphical user interface (GUI). It utilizes several libraries and APIs to provide functionalities such as speech recognition, text-to-speech, real-time information retrieval, and application control.
@@ -36,8 +36,8 @@ This project is an AI-powered assistant that can perform various tasks, answer q
 ### Steps
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/garimabhayanaa/AI-Assistant
-   cd AI-Assistant
+   git clone https://github.com/garimabhayanaa/IntelliAssist
+   cd IntelliAssist
    ```
 
 2. **Install Required Packages**:
