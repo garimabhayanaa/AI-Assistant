@@ -15,7 +15,6 @@ from backend.Automation import automation
 from backend.SpeechToText import speech_recognition
 from backend.Chatbot import chatbot
 from backend.TextToSpeech import TTS
-from backend.AppControl import perform_task_on_application  
 from dotenv import dotenv_values
 from asyncio import run
 from time import sleep
@@ -25,6 +24,14 @@ import json
 import os
 import sys
 import numpy as np
+import platform
+
+if platform.system() == "Darwin":  # macOS
+    from backend.AppControlMac import perform_task_on_application  
+elif platform.system() == "Windows":
+    from backend.AppControlWindows import perform_task_on_application  
+else:
+    raise RuntimeError("Unsupported operating system")
 
 env_vars=dotenv_values(".env")
 USERNAME= env_vars.get("USERNAME")
